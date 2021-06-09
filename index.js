@@ -21,12 +21,7 @@ const AdminBroSequelize = require('@admin-bro/sequelize')
 
 AdminBro.registerAdapter(AdminBroSequelize)
 const adminBro = new AdminBro({
-  resources: [{
-    resource: require('@src/user/user.entity'),
-  },
-  {
-    resource: require('@src/hospital/hospital.entity'),
-  }
+  resources: [
 ],
   rootPath: '/admin',
 })
