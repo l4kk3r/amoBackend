@@ -28,14 +28,7 @@ const adminBro = new AdminBro({
   },
   {
     resource: require('@src/hospital/hospital.entity'),
-  },
-  {
-    resource: require('@src/hospital/hospital.entity').Department,
-  },
-  {
-    resource: require('@src/hospital/hospital.entity').Hopital_Department,
-  },
-
+  }
 ],
   rootPath: '/admin',
 })
