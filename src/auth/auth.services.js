@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
                 email
             }
         })
-        if (!user) return res.status(422).json({ message: 'User with this email does not exist'})
+        if (!userFromDB) return res.status(422).json({ message: 'User with this email does not exist'})
 
         const user = userFromDB.dataValues
 
