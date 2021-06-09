@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 db = null;
-db = new Sequelize('postgres://ubjldtflxufkxe:5c19cbe147b67e9d15179c6ef92f2477bfa7821bd1760c806b7c805452d18446@ec2-52-213-119-221.eu-west-1.compute.amazonaws.com:5432/dac92pegjkq5ls',
+db = new Sequelize(process.env.DATABASE_URL,
           {
             dialect: "postgres",
             protocol: "postgres",

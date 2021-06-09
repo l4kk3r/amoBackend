@@ -1,10 +1,18 @@
 const Joi = require('joi');
 
-const createValidator = Joi.object({
+exports.createValidator = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
     confirmPassword: Joi.string().valid(Joi.ref('password')).required()
 });
 
-exports.createValidator = createValidator
+exports.loginValidator = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required()
+});
+
+exports.updateValidator = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().email().required()
+});

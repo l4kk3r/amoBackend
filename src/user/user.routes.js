@@ -1,11 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const User = require('./user.entity')
 
-router.get('/', async (req, res) => {
-    const users = await User.findAll()
-    console.log(users)
-    res.send(users)
-})
+const userMiddlewares = require('./user.middlewares')
+const userServices = require('./user.services')
+
+router.put('/', userMiddlewares.authenticateToken, userServices.update)
 
 module.exports = router
