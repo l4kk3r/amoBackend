@@ -44,8 +44,8 @@ exports.login = async (req, res) => {
         const hashedPassword = user.password
         const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword)
         if (!isPasswordCorrect) return res.status(422).json({ message: 'User with this email or password does not exist'})
-        console.log("USER IS", user)
-        delete user.password
+       
+        user.password = undefined
     
         const jwtToken = jwt.sign({ user }, process.env.JWT_SECRET)
     
