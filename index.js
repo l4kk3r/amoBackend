@@ -15,19 +15,7 @@ app.use(express.urlencoded({ extended: true}))
 require('@src/mongodb_connection')
 
 /* ADMIN PANEL */
-const AdminBro = require('admin-bro')
-const AdminBroExpress = require('@admin-bro/express')
-const AdminBroSequelize = require('@admin-bro/sequelize')
 
-AdminBro.registerAdapter(AdminBroSequelize)
-const adminBro = new AdminBro({
-  resources: [
-],
-  rootPath: '/admin',
-})
-
-const router = AdminBroExpress.buildRouter(adminBro)
-app.use(adminBro.options.rootPath, router)
 
 /* SWAGGER */
 const swaggerSpecs = require('./swagger_connection')
