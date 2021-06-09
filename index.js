@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const swaggerUI = require('swagger-ui-express')
 require('module-alias/register')
 
 const PORT = process.env.PORT
@@ -35,6 +36,10 @@ const adminBro = new AdminBro({
 
 const router = AdminBroExpress.buildRouter(adminBro)
 app.use(adminBro.options.rootPath, router)
+
+/* SWAGGER */
+const swaggerSpecs = require('./swagger_connection')
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs))
 
 /* ROUTES */
 const authRoutes = require('@src/auth/auth.routes')
