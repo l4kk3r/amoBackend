@@ -4,16 +4,16 @@ const options = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "rateMyCode API",
+            title: "HospalTrip API",
             version: "1.0.0",
-            description: "rateMyCode - forum for exchange of experience between coders.",
+            description: "HospalTrip.",
             contact: {
-                name: "Tim Vetkin"
+                name: "Tim Vaulin"
             }
         },
         servers: [
             {
-                url: "https://test-rest8.herokuapp.com"
+                url: "https://hospaltrip-server.herokuapp.com"
             }
         ],
     },
