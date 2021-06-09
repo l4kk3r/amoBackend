@@ -12,10 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 
 /* DATABASE */
-const db = require('@database/database');
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch(err => console.log('Error: ' + err))
+require('@src/mongodb_connection')
 
 /* ADMIN PANEL */
 const AdminBro = require('admin-bro')
