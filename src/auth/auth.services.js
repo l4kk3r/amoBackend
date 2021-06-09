@@ -37,8 +37,10 @@ exports.login = async (req, res) => {
                 email
             }
         })
-        const user = userFromDB.dataValues
         if (!user) return res.status(422).json({ message: 'User with this email does not exist'})
+
+        const user = userFromDB.dataValues
+
     
         const hashedPassword = user.password
         const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword)
