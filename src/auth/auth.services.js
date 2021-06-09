@@ -1,4 +1,5 @@
-const User = require('@src/user/user.entity')
+const mongoose = require('mongoose')
+const User = mongoose.model("User")
 const bcrypt = require('bcryptjs')
 const chalk = require('chalk')
 const jwt = require('jsonwebtoken')
@@ -10,9 +11,7 @@ exports.register = async (req, res) => {
         const user = req.body
         
         const userWithSameEmail = await User.findOne({
-            where: {
                 email: user.email
-            }
         })
         if (userWithSameEmail) {
             return res.status(409).json({ message: 'User with this email already exists' })
@@ -23,9 +22,7 @@ exports.register = async (req, res) => {
         }
 
         const userFromDB = await User.findOne({
-            where: {
-                email: user.email
-            }
+            email: user.email
         })
         const jwtToken = jwt.sign({ userFromDB }, process.env.JWT_SECRET)
         
@@ -39,16 +36,11 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body
 
-        const userFromDB = await User.findOne({
-            where: {
-                email
-            }
+        const user = await User.findOne({
+           email
         })
-        if (!userFromDB) return res.status(422).json({ message: 'User with this email does not exist'})
+        if (! user) return res.status(422).json({ message: 'User with this email does not exist'})
 
-        const user = userFromDB.dataValues
-
-    
         const hashedPassword = user.password
         const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword)
         if (!isPasswordCorrect) return res.status(422).json({ message: 'User with this email or password does not exist'})
