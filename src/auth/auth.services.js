@@ -22,7 +22,14 @@ exports.register = async (req, res) => {
             await User.create(user)
         }
 
-        res.json({ message: 'User created!' })
+        const userFromDB = await User.findOne({
+            where: {
+                email: user.email
+            }
+        })
+        const jwtToken = jwt.sign({ userFromDB }, process.env.JWT_SECRET)
+        
+        res.json({ message: 'User created!', jwtToken })
     } catch {
         res.status(500).json({ message: 'Internal Server Error' })
     }
