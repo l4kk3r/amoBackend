@@ -1,4 +1,5 @@
-const User = require('@src/user/user.entity')
+const mongoose = require('mongoose')
+const User = mongoose.model("User")
 const bcrypt = require('bcryptjs')
 const chalk = require('chalk')
 const jwt = require('jsonwebtoken')
@@ -7,23 +8,26 @@ const saltRounds = 10
 
 exports.register = async (req, res) => {
     try {
-        const user = req.body
+        const userData = req.body
         
         const userWithSameEmail = await User.findOne({
-            where: {
-                email: user.email
-            }
+                email: userData.email
         })
         if (userWithSameEmail) {
             return res.status(409).json({ message: 'User with this email already exists' })
         } else {
-            const hashedPassword = await bcrypt.hash(req.body.password, saltRounds)
-            user.password = hashedPassword
-            await User.create(user)
+            const newUser = new User(userData)
+            await newUser.save()
         }
 
-        res.json({ message: 'User created!' })
+        const user = await User.findOne({
+            email: userData.email
+        })
+        const jwtToken = jwt.sign({ user }, process.env.JWT_SECRET)
+        
+        res.json({ message: 'User created!', jwtToken })
     } catch {
+        console.log(e)
         res.status(500).json({ message: 'Internal Server Error' })
     }
 }
@@ -32,19 +36,15 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body
 
-        const userFromDB = await User.findOne({
-            where: {
-                email
-            }
-        })
-        const user = userFromDB.dataValues
+        let user = await User.findOne({
+           email
+        }).select("+password")
         if (!user) return res.status(422).json({ message: 'User with this email does not exist'})
-    
-        const hashedPassword = user.password
-        const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword)
+
+        const isPasswordCorrect = await user.comparePassword(password)
         if (!isPasswordCorrect) return res.status(422).json({ message: 'User with this email or password does not exist'})
-        
-        delete user.password
+       
+        user.password = undefined
     
         const jwtToken = jwt.sign({ user }, process.env.JWT_SECRET)
     
