@@ -18,6 +18,12 @@ app.use(adminBro.options.rootPath, router)
 const swaggerSpecs = require('@connections/connection.swagger')
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs))
 
+/* APP */
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true}))
+app.use(express.static('public'))
+
 /* ROUTES */
 const authRoutes = require('@src/auth/auth.routes')
 const userRoutes = require('@src/user/user.routes')
@@ -25,11 +31,6 @@ const hospitalRoutes = require('@src/hospital/hospital.routes')
 app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/hospital', hospitalRoutes)
-
-/* APP */
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true}))
 
 /* SERVER */
 app.listen(PORT, () => {
