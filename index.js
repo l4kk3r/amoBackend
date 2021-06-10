@@ -5,20 +5,17 @@ require('module-alias/register')
 
 const PORT = process.env.PORT
 
-/* APP */
 const app = express()
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true}))
 
 /* DATABASE */
-require('@src/mongodb_connection')
+const connection = require('@connections/connection.mongodb')
 
 /* ADMIN PANEL */
-
+const { adminBro, router } = require('@connections/connection.adminbro')
+app.use(adminBro.options.rootPath, router)
 
 /* SWAGGER */
-const swaggerSpecs = require('./swagger_connection')
+const swaggerSpecs = require('@connections/connection.swagger')
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs))
 
 /* ROUTES */
@@ -28,6 +25,11 @@ const hospitalRoutes = require('@src/hospital/hospital.routes')
 app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/hospital', hospitalRoutes)
+
+/* APP */
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true}))
 
 /* SERVER */
 app.listen(PORT, () => {
