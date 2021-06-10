@@ -4,7 +4,7 @@ exports.createValidator = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
-    confirmPassword: Joi.string().valid(Joi.ref('password')).required()
+    confirmPassword: Joi.string().valid(Joi.ref('password')).required().options({ messages: { 'any.only': 'Passwords do not match'} })
 });
 
 exports.loginValidator = Joi.object({

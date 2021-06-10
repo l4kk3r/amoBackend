@@ -16,9 +16,8 @@ exports.register = async (req, res) => {
         if (userWithSameEmail) {
             return res.status(409).json({ message: 'User with this email already exists' })
         } else {
-            const hashedPassword = await bcrypt.hash(userData.password, saltRounds)
-            userData.password = hashedPassword
-            await User.create(userData)
+            const newUser = new User(userData)
+            await newUser.save()
         }
 
         const user = await User.findOne({
@@ -28,6 +27,7 @@ exports.register = async (req, res) => {
         
         res.json({ message: 'User created!', jwtToken })
     } catch {
+        console.log(e)
         res.status(500).json({ message: 'Internal Server Error' })
     }
 }
@@ -39,10 +39,9 @@ exports.login = async (req, res) => {
         let user = await User.findOne({
            email
         }).select("+password")
-        if (! user) return res.status(422).json({ message: 'User with this email does not exist'})
+        if (!user) return res.status(422).json({ message: 'User with this email does not exist'})
 
-        const hashedPassword = user.password
-        const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword)
+        const isPasswordCorrect = await user.comparePassword(password)
         if (!isPasswordCorrect) return res.status(422).json({ message: 'User with this email or password does not exist'})
        
         user.password = undefined
