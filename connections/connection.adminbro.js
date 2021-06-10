@@ -15,10 +15,24 @@ const ADMIN = {
     password: 'password',
 }
 
+const menu = {
+    Models: { name: 'Models', icon: 'Dashboard' },
+    Helpers: { name: 'Helpers', icon: 'Wheat' },
+}
+
 const adminBro = new AdminBro({
+    assets: {
+        styles: ['/admin.css']
+    },
+    branding: {
+        companyName: 'HospalTrip',
+        logo: false,
+        softwareBrothers: false
+    },
     resources: [{
       resource: User,
       options: {
+        parent: menu.Models,
         listProperties: [ 'name', 'email', '_id'],
         editProperties: ['name', 'email'],
         showProperties: ['_id', 'name', 'email', 'createdAt']
@@ -27,16 +41,34 @@ const adminBro = new AdminBro({
     {
       resource: Hospital,
       options: {
+        parent: menu.Models,
         listProperties: ['title', '_id'],
       }
     },
     {
       resource: Department,
+      options: {
+        listProperties: ['title'],
+        showProperties: ['title'],
+        parent: menu.Helpers,
+      }
     },
     {
       resource: Language,
+      options: {
+        listProperties: ['title'],
+        showProperties: ['title'],
+        parent: menu.Helpers,
+      }
     }
     ],
+    locale: {
+        translations: {
+        messages: {
+            loginWelcome: "To the best admin panel in the universe"
+        }
+        }
+    },
     rootPath: '/admin',
 })
 

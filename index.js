@@ -22,6 +22,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
+app.use(express.static('public'))
 
 /* ROUTES */
 const authRoutes = require('@src/auth/auth.routes')
