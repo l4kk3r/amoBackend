@@ -3,7 +3,7 @@ const cors = require('cors')
 const swaggerUI = require('swagger-ui-express')
 require('module-alias/register')
 
-const PORT = process.env.PORT
+const PORT = 5000
 
 const app = express()
 

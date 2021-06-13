@@ -7,8 +7,7 @@ AdminBro.registerAdapter(AdminBroMongoose)
 
 const User = mongoose.model("User")
 const Hospital = mongoose.model("Hospital")
-const Department = mongoose.model("Department")
-const Language = mongoose.model("Language")
+const Doctor = mongoose.model("Doctor")
 
 const ADMIN = {
     email: 'admin',
@@ -43,22 +42,24 @@ const adminBro = new AdminBro({
       options: {
         parent: menu.Models,
         listProperties: ['title', '_id'],
+        properties: {
+          hospitalType: {
+            availableValues: [{ value: 'University hospital', label: 'University hospital' }, { value: 'State hospital', label: 'State hospital' }, { value: 'Private clinic', label: 'Private clinic' }]
+          },
+          departments: {
+            availableValues: [{ value: 'Obstetrics & Gynecology', label: 'Obstetrics & Gynecology' }, { value: 'Skin treatment', label: 'Skin treatment' }, { value: 'Obesity', label: 'Obesity' }, { value: 'Plastic surgery', label: 'Plastic surgery' }, { value: 'Dentist', label: 'Dentist' }, { value: 'Hair loss', label: 'Hair loss' }, { value: 'Urology', label: 'Urology' }, { value: 'Ophthalmology', label: 'Ophthalmology' }, { value: 'Cardiology', label: 'Cardiology' }, { value: 'Health checkup', label: 'Health checkup' }, { value: 'Cancer / Tumor', label: 'Cancer / Tumor' }, { value: 'Gastroenterology', label: 'Gastroenterology' }]
+          },
+          'details.languages': {
+            availableValues: [{ value: 'English', label: 'English' }, { value: 'Korean', label: 'Korean' }, { value: 'Russian', label: 'Russian' }, { value: 'Mongolian', label: 'Mongolian' }, { value: 'Chinese', label: 'Chinese' }, { value: 'Hebrew', label: 'Hebrew' }, { value: 'Hebrew ', label: 'Hebrew ' }, { value: 'French', label: 'French' }, { value: 'Ivrit', label: 'Ivrit' }]
+          },
+        }
       }
     },
     {
-      resource: Department,
+      resource: Doctor,
       options: {
-        listProperties: ['title'],
-        showProperties: ['title'],
-        parent: menu.Helpers,
-      }
-    },
-    {
-      resource: Language,
-      options: {
-        listProperties: ['title'],
-        showProperties: ['title'],
-        parent: menu.Helpers,
+        parent: menu.Models,
+        listProperties: ['name'],
       }
     }
     ],

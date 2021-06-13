@@ -1,24 +1,19 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose
+const { Schema, Decimal128 } = mongoose
 
-const deparmentSchema = new Schema({
-    title: {
+const doctorSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
         type: String,
         required: true
     }
 })
 
-mongoose.model('Department', deparmentSchema)
-
-const languageSchema = new Schema({
-    title: {
-        type: String,
-        required: true
-    }
-})
-
-mongoose.model('Language', languageSchema)
+mongoose.model('Doctor', doctorSchema)
 
 const detailsSchema = new Schema({
     numberOfEmployees: Number,
@@ -27,11 +22,26 @@ const detailsSchema = new Schema({
     officeForInternationalPatients: Boolean,
     numberOfBeds: Number,
     numberOfHospitals: Number,
-    languages: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Language'
-    }]
-}, { _id: false })
+    languages: [String]
+})
+const termsAndConditionsSchema = new Schema({
+    transfer: {
+        type: Boolean,
+        default: false
+    },
+    hospitalAccomodation: {
+        type: Boolean,
+        default: false
+    },
+    translator: {
+        type: Boolean,
+        default: false
+    },
+    religiousServices: {
+        type: Boolean,
+        default: false
+    }
+})
 
 const addressSchema = new Schema({
     address: String,
@@ -47,19 +57,29 @@ const hospitalSchema = new Schema({
         type: String,
         required: true
     },
+    hospitalType: {
+        type: String,
+        required: true
+    },
+    latitudue: Decimal128,
+    longtitude: Decimal128,
     description: {
         type: String
     },
     details: {
         type: detailsSchema
     },
-    departments:  [{
-        type: Schema.Types.ObjectId,
-        ref: 'Department',
-    }],
+    departments:  [String],
+    termsAndConditions: {
+        type: termsAndConditionsSchema
+    },
     address: {
         type: addressSchema
-    }
+    },
+    doctors: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Doctor'
+    }]
 })
 
 mongoose.model('Hospital', hospitalSchema)
