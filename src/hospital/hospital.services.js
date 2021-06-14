@@ -3,11 +3,15 @@ const mongoose = require('mongoose')
 const Hospital = mongoose.model('Hospital')
 
 exports.getAll = async (req, res) => {
-    hospitalsN = await Hospital.find({}).populate('details.languages')
+    hospitals = await Hospital.find({})
 
-    data = {
-        hospitalsN
-    }
+    res.json({hospitals})
+}
 
-    res.json({...data})
+exports.getOne = async (req, res) => {
+    hospital = await Hospital.find({ url: req.params.url })
+
+    if (!hospital) return res.status(404).json({ message: 'Hospital not found' })
+
+    res.json({hospital})
 }

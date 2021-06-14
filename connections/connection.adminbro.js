@@ -43,6 +43,9 @@ const adminBro = new AdminBro({
         parent: menu.Models,
         listProperties: ['title', '_id'],
         properties: {
+          description: {
+            type: 'richtext'
+          },
           hospitalType: {
             availableValues: [{ value: 'University hospital', label: 'University hospital' }, { value: 'State hospital', label: 'State hospital' }, { value: 'Private clinic', label: 'Private clinic' }]
           },
@@ -52,6 +55,9 @@ const adminBro = new AdminBro({
           'details.languages': {
             availableValues: [{ value: 'English', label: 'English' }, { value: 'Korean', label: 'Korean' }, { value: 'Russian', label: 'Russian' }, { value: 'Mongolian', label: 'Mongolian' }, { value: 'Chinese', label: 'Chinese' }, { value: 'Hebrew', label: 'Hebrew' }, { value: 'Hebrew ', label: 'Hebrew ' }, { value: 'French', label: 'French' }, { value: 'Ivrit', label: 'Ivrit' }]
           },
+          url: {
+            isDisabled: true
+          }
         }
       }
     },

@@ -55,7 +55,8 @@ const addressSchema = new Schema({
 const hospitalSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     hospitalType: {
         type: String,
@@ -79,7 +80,23 @@ const hospitalSchema = new Schema({
     doctors: [{
         type: Schema.Types.ObjectId,
         ref: 'Doctor'
-    }]
+    }],
+    url: {
+        type: String,
+        unique: true
+    }
+})
+
+hospitalSchema.pre('save', async function (next) {
+    const hospital = this
+
+    if (!hospital.isModified('title')) return next();
+
+    const url = hospital.title.trim().replace(/ /g, '-').toLowerCase()
+
+    hospital.url = url
+    next()
 })
 
 mongoose.model('Hospital', hospitalSchema)
+
