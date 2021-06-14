@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
 }
 
 exports.getOne = async (req, res) => {
-    hospital = await Hospital.find({ url: req.params.url })
+    hospital = await Hospital.findOne({ url: req.params.url }).populate('doctors')
 
     if (!hospital) return res.status(404).json({ message: 'Hospital not found' })
 

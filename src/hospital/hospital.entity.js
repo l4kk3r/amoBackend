@@ -58,12 +58,16 @@ const hospitalSchema = new Schema({
         required: true,
         unique: true
     },
+    url: {
+        type: String,
+        unique: true
+    },
     hospitalType: {
         type: String,
         required: true
     },
-    latitudue: Decimal128,
-    longtitude: Decimal128,
+    latitudue: Number,
+    longtitude: Number,
     description: {
         type: String
     },
@@ -80,11 +84,7 @@ const hospitalSchema = new Schema({
     doctors: [{
         type: Schema.Types.ObjectId,
         ref: 'Doctor'
-    }],
-    url: {
-        type: String,
-        unique: true
-    }
+    }]
 })
 
 hospitalSchema.pre('save', async function (next) {
