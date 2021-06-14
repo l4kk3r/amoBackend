@@ -46,6 +46,9 @@ const adminBro = new AdminBro({
           description: {
             type: 'richtext'
           },
+          country: {
+            availableValues: [{ value: 'South Korea', label: 'South Korea' }, { value: 'Germany', label: 'Germany' }, { value: 'Israel', label: 'Israel' }]
+          },
           hospitalType: {
             availableValues: [{ value: 'University hospital', label: 'University hospital' }, { value: 'State hospital', label: 'State hospital' }, { value: 'Private clinic', label: 'Private clinic' }]
           },
