@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
     const [filters, error] = await getFiltersFromQuery(req.query)
     if (error) return res.status(404).json({ message: error })
 
-    hospitals = await Hospital.find(filters).populate('country')
+    hospitals = await Hospital.find(filters).populate('country').select('-country._id')
     if (!hospitals.length > 0) return res.status(404).json({ message: 'Hospitals not found' })
 
     res.json({ hospitals })
