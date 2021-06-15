@@ -1,25 +1,26 @@
 const mongoose = require('mongoose')
 
 const Hospital = mongoose.model('Hospital')
+const Country = mongoose.model('Country')
 
-const convertQuery = (param) => {
-    return param.replace(/-/g, ' ').replace(/or/g, '/').replace(/and/g, '&')
-}
-const getFiltersFromQuery = (query) => {
-    let filters = {
-        country: query.country,
-        department: query.department,
-        hospitalType: query.type
+const getFiltersFromQuery = async (query) => {
+    const queryData = {
+        country: query.country
     }
-    Object.keys(filters).forEach(key => filters[key] === undefined ? delete filters[key] : filters[key] = convertQuery(filters[key])) // удаление полей с undefined значением + преобразование полей
+    const filters = {}
+    console.log(queryData.country.toLowerCase())
+    const  countryFromDB = queryData.country ? await Country.findOne({nameTranslit: queryData.country.toLowerCase()}) : undefined
+    filters.country_id = countryFromDB ? countryFromDB._id : null
+    Object.keys(filters).forEach(key => filters[key] === undefined && delete filters[key]) // удаление полей с undefined значением
     return filters
 }
 
 exports.getAll = async (req, res) => {
-    const filters = getFiltersFromQuery(req.query)
+    const filters = await getFiltersFromQuery(req.query)
+    console.log(filters)
 
-    hospitals = await Hospital.find(filters)
-    if (!hospitals) return res.status(404).json({ message: 'Hospitals not found' })
+    hospitals = await Hospital.find({ 'country': filters.country_id })
+    if (!hospitals.length > 0) return res.status(404).json({ message: 'Hospitals not found' })
 
     res.json({ hospitals })
 }

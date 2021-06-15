@@ -86,6 +86,7 @@ const adminBro = new AdminBro({
       options: {
         parent: menu.Helpers,
         listProperties: ['name'],
+        editProperties: ['name']
       }
     }
     ],
