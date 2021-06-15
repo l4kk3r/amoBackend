@@ -10,7 +10,7 @@ const countrySchema = new Schema({
     nameTranslit: {
         type: String
     }
-})
+}, { versionKey: false })
 
 countrySchema.pre('save', async function (next) {
     const country = this

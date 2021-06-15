@@ -11,7 +11,7 @@ const doctorSchema = new Schema({
         type: String,
         required: true
     }
-})
+}, { versionKey: false })
 
 mongoose.model('Doctor', doctorSchema)
 
@@ -50,7 +50,7 @@ const addressSchema = new Schema({
     city: String,
     country: String,
     state: String
-}, { _id: false })
+})
 
 const hospitalSchema = new Schema({
     title: {
@@ -102,7 +102,7 @@ const hospitalSchema = new Schema({
         type: String,
         unique: true
     },
-})
+}, { versionKey: false })
 
 hospitalSchema.pre('save', async function (next) {
     const hospital = this
