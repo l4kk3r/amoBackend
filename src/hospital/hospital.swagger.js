@@ -9,7 +9,7 @@
  * @swagger
  * /hospital:
  *   get:
- *     summary: Get list of all questions
+ *     summary: Get list of all hospitals
  *     tags: [Hospital]
  *     parameters:
  *       - name: type
@@ -26,7 +26,7 @@
  *         description: Hospitals department
  *     responses:
  *       200:
- *         description: The list of the questions
+ *         description: The list of the hospitals
  *         contents:
  *           application/json:
  *           schema:

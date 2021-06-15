@@ -12,3 +12,4 @@ mongoose.connection.on('error', () => console.log('Failed to connect MongoDB'))
 
 require('@src/user/user.entity')
 require('@src/hospital/hospital.entity')
+require('@src/country/country.entity')

@@ -28,9 +28,11 @@ app.use('/public', express.static('public'))
 const authRoutes = require('@src/auth/auth.routes')
 const userRoutes = require('@src/user/user.routes')
 const hospitalRoutes = require('@src/hospital/hospital.routes')
+const countriesRoutes = require('@src/country/country.routes')
 app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/hospital', hospitalRoutes)
+app.use('/country', countriesRoutes)
 
 /* SERVER */
 app.listen(PORT, () => {

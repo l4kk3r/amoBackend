@@ -9,6 +9,7 @@ AdminBro.registerAdapter(AdminBroMongoose)
 const User = mongoose.model("User")
 const Hospital = mongoose.model("Hospital")
 const Doctor = mongoose.model("Doctor")
+const Country = mongoose.model("Country")
 
 const ADMIN = {
     email: 'admin',
@@ -77,6 +78,13 @@ const adminBro = new AdminBro({
       resource: Doctor,
       options: {
         parent: menu.Models,
+        listProperties: ['name'],
+      }
+    },
+    {
+      resource: Country,
+      options: {
+        parent: menu.Helpers,
         listProperties: ['name'],
       }
     }

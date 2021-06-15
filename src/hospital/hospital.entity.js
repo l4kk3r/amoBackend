@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { Schema, Decimal128 } = mongoose
+const { Schema } = mongoose
 
 const doctorSchema = new Schema({
     name: {
@@ -66,8 +66,8 @@ const hospitalSchema = new Schema({
         // required: true
     },
     country: {
-        type: String,
-        // required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Country'
     },
     city: {
         type: String,

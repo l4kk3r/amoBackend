@@ -21,11 +21,11 @@ exports.getAll = async (req, res) => {
     hospitals = await Hospital.find(filters)
     if (!hospitals) return res.status(404).json({ message: 'Hospitals not found' })
 
-    res.json({hospitals})
+    res.json({ hospitals })
 }
 
 exports.getOne = async (req, res) => {
-    hospital = await Hospital.findOne({ url: req.params.url }).populate('doctors')
+    hospital = await Hospital.findOne({ url: req.params.url }).populate('doctors country')
 
     if (!hospital) return res.status(404).json({ message: 'Hospital not found' })
 
