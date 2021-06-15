@@ -10,6 +10,8 @@ const User = mongoose.model("User")
 const Hospital = mongoose.model("Hospital")
 const Doctor = mongoose.model("Doctor")
 const Country = mongoose.model("Country")
+const HospitalType = mongoose.model("HospitalType")
+const Department = mongoose.model("Department")
 
 const ADMIN = {
     email: 'admin',
@@ -83,6 +85,22 @@ const adminBro = new AdminBro({
     },
     {
       resource: Country,
+      options: {
+        parent: menu.Helpers,
+        listProperties: ['name'],
+        editProperties: ['name']
+      }
+    },
+    {
+      resource: HospitalType,
+      options: {
+        parent: menu.Helpers,
+        listProperties: ['name'],
+        editProperties: ['name']
+      }
+    },
+    {
+      resource: Department,
       options: {
         parent: menu.Helpers,
         listProperties: ['name'],

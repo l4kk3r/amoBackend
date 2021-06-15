@@ -12,7 +12,7 @@
  *     summary: Get list of all hospitals
  *     tags: [Hospital]
  *     parameters:
- *       - name: type
+ *       - name: hospitaltype
  *         in: query
  *         type: string
  *         description: Hospitals type

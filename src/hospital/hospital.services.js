@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const Hospital = mongoose.model('Hospital')
 const Country = mongoose.model('Country')
+const HospitalType = mongoose.model('HospitalType')
 
 const modelIdByNameTranslit = async (Model, nameTranslit) => {
     const object = await Model.findOne({nameTranslit})
@@ -15,6 +16,11 @@ const getFiltersFromQuery = async (query) => {
         const [country_id, error] = await modelIdByNameTranslit(Country, query.country)
         if (error) return [null, error]
         filters.country = country_id
+    }
+    if (query.hospitalType) {
+        const [hospitalType_id, error] = await modelIdByNameTranslit(HospitalType, query.hospitalType)
+        if (error) return [null, error]
+        filters.hospitalType = hospitalType_id
     }
     return [filters, null]
 }

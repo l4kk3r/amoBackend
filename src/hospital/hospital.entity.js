@@ -62,8 +62,8 @@ const hospitalSchema = new Schema({
         type: String
     },
     hospitalType: {
-        type: String,
-        // required: true
+        type: Schema.Types.ObjectId,
+        ref: 'HospitalType'
     },
     country: {
         type: Schema.Types.ObjectId,
@@ -87,7 +87,10 @@ const hospitalSchema = new Schema({
     details: {
         type: detailsSchema
     },
-    departments:  [String],
+    departments:  [{
+        type: Schema.Types.ObjectId,
+        ref: 'Department'
+    }],
     termsAndConditions: {
         type: termsAndConditionsSchema
     },
