@@ -11,6 +11,19 @@
  *   get:
  *     summary: Get list of all questions
  *     tags: [Hospital]
+ *     parameters:
+ *       - name: type
+ *         in: query
+ *         type: string
+ *         description: Hospitals type
+ *       - name: country
+ *         in: query
+ *         type: string
+ *         description: Hospitals country
+ *       - name: department
+ *         in: query
+ *         type: string
+ *         description: Hospitals department
  *     responses:
  *       200:
  *         description: The list of the questions
