@@ -58,25 +58,28 @@ const hospitalSchema = new Schema({
         required: true,
         unique: true
     },
+    imagePath: {
+        type: String
+    },
     hospitalType: {
         type: String,
-        required: true
+        // required: true
     },
     country: {
         type: String,
-        required: true
+        // required: true
     },
     city: {
         type: String,
-        required: true
+        // required: true
     },
     latitudue: {
         type: Number,
-        required: true
+        // required: true
     },
     longtitude: {
         type: Number,
-        required: true
+        // required: true
     },
     description: {
         type: String

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const AdminBro = require('admin-bro')
 const AdminBroMongoose = require('@admin-bro/mongoose')
 const AdminBroExpress = require('@admin-bro/express')
+const uploadFeature = require('@admin-bro/upload')
 
 AdminBro.registerAdapter(AdminBroMongoose)
 
@@ -14,6 +15,7 @@ const ADMIN = {
     password: 'password',
 }
 
+
 const menu = {
     Models: { name: 'Models', icon: 'Dashboard' },
     Helpers: { name: 'Helpers', icon: 'Wheat' },
@@ -21,7 +23,7 @@ const menu = {
 
 const adminBro = new AdminBro({
     assets: {
-        styles: ['/admin.css']
+        styles: ['/static/admin/admin.css']
     },
     branding: {
         companyName: 'HospalTrip',
@@ -39,6 +41,13 @@ const adminBro = new AdminBro({
     },
     {
       resource: Hospital,
+      features: [uploadFeature({
+        provider: { local: { bucket: 'public' } },
+        properties: {
+          filePath: `uploadedFile`,
+          key: `imagePath`,
+        }
+      })],
       options: {
         parent: menu.Models,
         listProperties: ['title', '_id'],

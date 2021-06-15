@@ -19,7 +19,7 @@ exports.getAll = async (req, res) => {
     const filters = getFiltersFromQuery(req.query)
 
     hospitals = await Hospital.find(filters)
-    if (!hospital) return res.status(404).json({ message: 'Hospitals not found' })
+    if (!hospitals) return res.status(404).json({ message: 'Hospitals not found' })
 
     res.json({hospitals})
 }
