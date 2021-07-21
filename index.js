@@ -43,7 +43,7 @@ const SESSION_SETTINGS = {
     rolling: false,
     withCredentials: true,
     saveUninitialized: true,
-    cookie: { maxAge: 60000, secure: true, httpOnly: false, sameSite: 'none' }
+    cookie: { secure: true, httpOnly: false, sameSite: 'none' }
 }
 app.use(session(SESSION_SETTINGS))
 
