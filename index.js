@@ -30,7 +30,7 @@ app.get('/ko', (req, res) => {
 })
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://work-fawn.vercel.app/auth/login', 'http://work-fawn.vercel.app/auth/login'],
     credentials: true
 }))
 app.use(cookieParser())
