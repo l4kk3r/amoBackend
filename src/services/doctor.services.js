@@ -23,3 +23,16 @@ exports.getDoctorById = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' })
     }
 }
+
+exports.changeInfo = async (req, res) => {
+    try {
+        const doctorId = req.doctor.id
+
+        const doctor = await Doctor.findByIdAndUpdate(doctorId, req.body)
+
+        res.json({ message: 'OK' })
+    } catch(e) {
+        console.log(e)
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
+}
