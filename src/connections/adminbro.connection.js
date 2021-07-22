@@ -44,16 +44,8 @@ const adminBro = new AdminBro({
       resource: Doctor,
       options: {
         parent: menu.Models,
-        listProperties: [ 'firstName', 'lastName', 'email', '_id'],
-        mimeType: 's' 
-      },
-      features: [uploadFeature({
-        provider: { aws: { region: 'eu-west-2', bucket: 'mainamodocbucket', accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY } },
-        properties: {
-          key: 'fileUrl', // to this db field feature will safe S3 key
-          mimeType: 'mimeType' // this property is important because allows to have previews
-        }
-      })]
+        listProperties: [ 'firstName', 'lastName', 'email', '_id']
+      }
     },
     {
       resource: Country,
