@@ -38,7 +38,7 @@ const SESSION_SETTINGS = {
     resave: false,
     rolling: false,
     withCredentials: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: true, httpOnly: false, sameSite: 'none' }
 }
 app.use(session(SESSION_SETTINGS))
