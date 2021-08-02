@@ -25,10 +25,6 @@ redisClient.on('connect', function() {
     console.log('connected to redis!!');
 });
 
-app.get('/ko', (req, res) => {
-    console.log(req.query)
-})
-
 app.use(cors({
     origin: ['http://localhost:3000', 'https://work-fawn.vercel.app/auth/login', 'http://work-fawn.vercel.app/auth/login'],
     credentials: true
