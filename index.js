@@ -11,8 +11,6 @@ const PORT = process.env.PORT
 const app = express()
 app.set('trust proxy', 1)
 
-console.log(app.get('env'))
-
 /* REDIS CONNECTION */
 const RedisStore = require('connect-redis')(session)
 const redisClient = redis.createClient({
